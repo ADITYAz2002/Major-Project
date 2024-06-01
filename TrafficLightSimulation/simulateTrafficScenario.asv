@@ -1,0 +1,47 @@
+% simulateTrafficScenario.m
+
+function simulateTrafficScenario
+    % Your code to simulate the traffic scenario and update the traffic signal
+    trafficLight = struct('signal', 'Red', 'lane', 1);  % Initial traffic light state
+    vehicle = struct('lane', 1);  % Example vehicle with lane information
+    
+    % Create a VideoWriter object for animation
+    videoFile = VideoWriter('traffic_simulation_animation.mp4', 'MPEG-4');
+    videoFile.FrameRate = 1; % Adjust the frame rate as needed
+    open(videoFile);
+
+    % Simulate time steps
+    for time = 1:10
+        % Simulate vehicle movement, etc.
+
+        % Update the traffic signal
+        trafficLight = updateTrafficSignal(trafficLight, vehicle);
+
+        % Display the animated traffic scenario
+        dispTrafficScenario(trafficLight, vehicle, time);
+
+        % Write each frame to the video file
+        frame = getframe(gcf);
+        writeVideo(videoFile, frame);
+        
+        % Pause to control the animation speed
+        pause(1);
+    end
+
+    % Close the video file
+    close(videoFile);
+end
+
+function dispTrafficScenario(trafficLight, vehicle, currentTime)
+    % Display the animated traffic scenario
+    fprintf('\nTime: %d\n', currentTime);
+    
+    % Display traffic light signal
+    fprintf('Traffic Light Signal: %s\n', trafficLight.signal);
+    
+    % Display vehicle lane
+    fprintf('Vehicle Lane: %d\n', vehicle.lane);
+    
+    % Add more information or visualization as needed
+    fprintf('----------------------\n');
+end
